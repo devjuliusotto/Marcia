@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aniversário - Edição Especial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    /* ----------------------------------------------
+       RESET BÁSICO
+    ---------------------------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ----------------------------------------------
+       ESTILOS GERAIS
+    ---------------------------------------------- */
+    body {
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364); 
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow: hidden; /* impede scroll */
+      position: relative;
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ----------------------------------------------
+       CONTAINER PRINCIPAL
+    ---------------------------------------------- */
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ----------------------------------------------
+       MENSAGENS
+    ---------------------------------------------- */
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      text-align: center;
+      opacity: 0;            /* Inicia escondida */
+      transition: opacity 1s;
+      width: 80%;
+      max-width: 800px;
+      padding: 0 1rem;
+      line-height: 1.4;
+    }
+
+    .active {
+      opacity: 1;           /* Torna mensagem visível */
+    }
+
+    /* ----------------------------------------------
+       CARRO DE F1
+    ---------------------------------------------- */
+    .f1-car {
+      position: absolute;
+      top: 60%;              /* Ajuste conforme quiser */
+      left: -200px;          /* Começa fora da tela (à esquerda) */
+      width: 200px;
+      z-index: 5;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Animação de “correr” da esquerda para a direita */
+    .slide-in {
+      animation: moveCar 3s linear forwards;
+    }
+
+    @keyframes moveCar {
+      0% {
+        transform: translateX(0px);
+      }
+      100% {
+        transform: translateX(120vw); /* atravessa a tela */
+      }
+    }
+
+    /* ----------------------------------------------
+       SEÇÃO DA FOTO (quando aparecer)
+    ---------------------------------------------- */
+    .photo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .photo-section img {
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.4);
+      margin-bottom: 1rem;
+    }
+
+    /* ----------------------------------------------
+       CONFETTI 
+    ---------------------------------------------- */
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #fdee00;
+      will-change: transform, opacity;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110%) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Carrinho de F1 -->
+    <img class="f1-car" 
+         src="/f1.webp" 
+         alt="Carrinho de F1" />
+
+    <!-- Mensagem 1: Introdução -->
+    <div class="message" id="msg1">
+      <p>Hoje é dia <strong>3 de janeiro</strong>...</p>
+      <p>Você sabe quem faz aniversário nessa data?</p>
+    </div>
+
+    <!-- Mensagem 2: Michael Schumacher -->
+    <div class="message" id="msg2">
+      <p>É o dia dele, o lendário <strong>Michael Schumacher</strong>!</p>
+      <p>Sete vezes campeão mundial de Fórmula 1, um ícone do automobilismo!</p>
+    </div>
+
+    <!-- Mensagem 3: Hora da piada / transição -->
+    <div class="message" id="msg3">
+      <p>Mas peraí... ele não é o único sortudo a comemorar hoje...</p>
+      <p>Tem alguém MUITO especial que também sopra velinhas!</p>
+    </div>
+
+    <!-- Mensagem 4: Contexto de Houston, estudos etc. -->
+    <div class="message" id="msg4">
+      <p>Essa pessoa foi desbravar o mundo em <strong>Houston, Texas</strong>!</p>
+      <p>Uma física nuclear com pós-doutorado em epidemiologia... Uau!</p>
+    </div>
+
+    <!-- Mensagem 5: Parabéns para a Márcia -->
+    <div class="message" id="msg5">
+      <p><strong>Parabéns para você, Márcia!</strong></p>
+      <p>Mandando somente agora pra fechar com chave de ouro esse belo dia rsrsrs</p>
+      <div class="photo-section">
+        <!-- Substitua pelo URL da foto desejada -->
+        <img 
+          src="/marcia.jpg" 
+          alt="Foto com a Márcia" 
+        />
+        <p>Uma foto do início da nossa jornada por Houston</p>
+      </div>
+    </div>
+
+    <!-- Mensagem 6: Agradecimento final -->
+    <div class="message" id="msg6">
+      <p></p>
+      <p>Que Deus continue te abençoando ricamente e que muitas bençãos sejam derramadas por onde estiverem. \n Abração!!</p>
+    </div>
+
+    <!-- Contêiner invisível para confetes -->
+    <div class="confetti" id="confetti"></div>
+
+  </div>
+
+  <script>
+    // --- Referências aos elementos ---
+    const car = document.querySelector('.f1-car');
+    const msg1 = document.getElementById('msg1');
+    const msg2 = document.getElementById('msg2');
+    const msg3 = document.getElementById('msg3');
+    const msg4 = document.getElementById('msg4');
+    const msg5 = document.getElementById('msg5');
+    const msg6 = document.getElementById('msg6');
+    const confettiContainer = document.getElementById('confetti');
+
+    /*
+      Timeline (aprox. 17s total):
+      ---------------------------------
+      0.5s  -> Carro entra na tela (3s de animação)
+      1s    -> Mostrar msg1 (4s)
+      5s    -> msg1 sai, msg2 entra (4s)
+      9s    -> msg2 sai, msg3 entra (4s)
+      13s   -> msg3 sai, msg4 entra (4s)
+      17s   -> msg4 sai, msg5 entra (4s)
+      21s   -> msg5 sai, msg6 entra (+ confetes) - fica indefinido
+    */
+
+    // 1) Animação do carro (começa em 0.5s)
+    setTimeout(() => {
+      car.classList.add('slide-in');
+    }, 500);
+
+    // 2) msg1 aparece em 1s
+    setTimeout(() => {
+      msg1.classList.add('active');
+    }, 1000);
+
+    // 3) msg1 sai, msg2 entra em 5s
+    setTimeout(() => {
+      msg1.classList.remove('active');
+      msg2.classList.add('active');
+    }, 5000);
+
+    // 4) msg2 sai, msg3 entra em 9s
+    setTimeout(() => {
+      msg2.classList.remove('active');
+      msg3.classList.add('active');
+    }, 9000);
+
+    // 5) msg3 sai, msg4 entra em 13s
+    setTimeout(() => {
+      msg3.classList.remove('active');
+      msg4.classList.add('active');
+    }, 13000);
+
+    // 6) msg4 sai, msg5 entra em 17s
+    setTimeout(() => {
+      msg4.classList.remove('active');
+      msg5.classList.add('active');
+    }, 17000);
+
+    // 7) msg5 sai, msg6 entra em 21s
+    setTimeout(() => {
+      msg5.classList.remove('active');
+      msg6.classList.add('active');
+      // Iniciar confetes
+      startConfetti();
+    }, 21000);
+
+    // ------- Funções de CONFETE -------
+    function randomBetween(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function createConfettiPiece() {
+      const confettiPiece = document.createElement('div');
+      confettiPiece.classList.add('confetti-piece');
+
+      // Cores aleatórias
+      const colors = ['#FDEE00', '#FF5B5B', '#57E2E5', '#8F00FF', '#FFBC42', '#FF85AD', '#00FA9A'];
+      const randomColor = colors[randomBetween(0, colors.length - 1)];
+      confettiPiece.style.backgroundColor = randomColor;
+      
+      // Posição aleatória na tela
+      confettiPiece.style.left = randomBetween(0, 100) + '%';
+      confettiPiece.style.top = '-10px';
+      
+      // Tamanho aleatório
+      const size = randomBetween(8, 12) + 'px';
+      confettiPiece.style.width = size;
+      confettiPiece.style.height = size;
+
+      // Duração aleatória (3 a 6 segundos)
+      const fallDuration = randomBetween(3, 6) + 's';
+      confettiPiece.style.animationDuration = fallDuration;
+
+      confettiContainer.appendChild(confettiPiece);
+
+      // Remove do DOM ao acabar a animação
+      confettiPiece.addEventListener('animationend', () => {
+        confettiPiece.remove();
+      });
+    }
+
+    function startConfetti() {
+      // Criar vários confetes
+      for (let i = 0; i < 200; i++) {
+        setTimeout(() => {
+          createConfettiPiece();
+        }, i * 30);
+      }
+    }
+  </script>
+</body>
+</html>
