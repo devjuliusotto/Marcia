@@ -1,381 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Márcia's Birthday</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      /* ----------------------------------------------
+<head>
+  <meta charset="UTF-8" />
+  <title>Special Birthday Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    /* ----------------------------------------------
        BASIC RESET
     ---------------------------------------------- */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      /* ----------------------------------------------
+    /* ----------------------------------------------
        BODY WITH ANIMATED GRADIENT BACKGROUND
     ---------------------------------------------- */
-      body {
-        width: 100%;
-        height: 100vh;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        overflow: hidden; /* Prevent scrolling */
-        position: relative;
-        background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #203a43);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
+    body {
+      width: 100%;
+      height: 100vh;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow: hidden; /* Prevent scrolling */
+      position: relative;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #203a43);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
       }
-      @keyframes gradientShift {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+      50% {
+        background-position: 100% 50%;
       }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 
-      /* ----------------------------------------------
+    /* ----------------------------------------------
        STAR FIELD (TWINKLING STARS IN THE BACKGROUND)
     ---------------------------------------------- */
-      .star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        border-radius: 50%;
-        background: #fff;
-        opacity: 0.6;
-        animation: twinkle 2s infinite ease-in-out;
-      }
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0.4;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.6;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
 
-      /* Container for all content */
-      .container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-      }
+    /* Container for all content */
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
 
-      /* ----------------------------------------------
+    /* ----------------------------------------------
        MESSAGES
        Aparecem com leve "scale" e fade (opacity)
     ---------------------------------------------- */
-      .message {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.8);
-        font-size: 2rem;
-        text-align: center;
-        opacity: 0; /* hidden initially */
-        transition: all 1s ease; /* animate scale & opacity */
-        width: 80%;
-        max-width: 800px;
-        padding: 0 1rem;
-        line-height: 1.4;
-      }
-      .active {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      font-size: 2rem;
+      text-align: center;
+      opacity: 0;  /* hidden initially */
+      transition: all 1s ease; /* animate scale & opacity */
+      width: 80%;
+      max-width: 800px;
+      padding: 0 1rem;
+      line-height: 1.4;
+    }
+    .active {
+      opacity: 1;           
+      transform: translate(-50%, -50%) scale(1);
+    }
 
-      /* 
-      Ajuste opcional se achar que o texto está muito grande
+    /* 
+      Ajuste opcional se achar que o texto fica muito grande
       em telas menores (i.e. iPhone 13 mini).
     */
-      @media (max-width: 400px) {
-        .message {
-          font-size: 1.3rem;
-        }
+    @media (max-width: 400px) {
+      .message {
+        font-size: 1.3rem;
       }
+    }
 
-      /* ----------------------------------------------
+    /* ----------------------------------------------
        F1 CAR
        Faz animação da esquerda para a direita
     ---------------------------------------------- */
-      .f1-car {
-        position: absolute;
-        top: 60%; /* Ajuste conforme quiser */
-        left: -200px;
-        width: 200px;
-        z-index: 5;
-        transition: transform 0.5s ease-in-out;
+    .f1-car {
+      position: absolute;
+      top: 60%;    /* Ajuste conforme quiser */
+      left: -220px; 
+      width: 200px;
+      z-index: 5;
+    }
+    /* “Running” animation from left to right */
+    .slide-in {
+      animation: moveCar 3s linear forwards;
+    }
+    @keyframes moveCar {
+      0% {
+        transform: translateX(0px);
       }
-      .slide-in {
-        animation: moveCar 3s linear forwards;
+      100% {
+        transform: translateX(120vw); /* cruza a tela */
       }
-      @keyframes moveCar {
-        0% {
-          transform: translateX(0px);
-        }
-        100% {
-          transform: translateX(120vw); /* cruza a tela */
-        }
-      }
+    }
 
-      /* ----------------------------------------------
+    /* ----------------------------------------------
        PHOTO SECTION
     ---------------------------------------------- */
-      .photo-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 2rem;
-      }
-      .photo-section img {
-        max-width: 300px;
-        border-radius: 8px;
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-        margin-bottom: 1rem;
-      }
+    .photo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .photo-section img {
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.4);
+      margin-bottom: 1rem;
+    }
 
-      /* ----------------------------------------------
+    /* ----------------------------------------------
        CONFETTI
     ---------------------------------------------- */
-      .confetti {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 999;
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #fdee00;
+      will-change: transform, opacity;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%) rotate(0deg);
+        opacity: 1;
       }
-      .confetti-piece {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: #fdee00;
-        will-change: transform, opacity;
-        animation: fall linear forwards;
+      100% {
+        transform: translateY(110%) rotate(720deg);
+        opacity: 0;
       }
-      @keyframes fall {
-        0% {
-          transform: translateY(-10%) rotate(0deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(110%) rotate(720deg);
-          opacity: 0;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Container for stars, content, confetti -->
-    <!-- We'll place the stars first, then .container, then confetti -->
+    }
+  </style>
+</head>
+<body>
 
-    <!-- We'll generate the stars via JS or you can also add them manually. -->
-    <div class="container" id="star-field">
-      <!-- F1 Car -->
-      <img class="f1-car" src="/f1.png" alt="F1 Car" />
+  <!-- Container for stars, content, confetti -->
+  <div class="container" id="star-field">
 
-      <!-- Message 1 -->
+    <!-- F1 Car (link público para garantir exibição no GitHub Pages) -->
+    <img 
+      class="f1-car"
+      src="/f1.png"
+      alt="F1 Car"
+    />
 
-      <div class="message" id="msg1">
-        <p>Good Evening, Lady and Gentleman...</p>
-        <p>_________________</p>
-        <p></p>
-        <p></p>
-        <p>Today is <strong>January 3rd</strong>...</p>
-        <p>Do you know who celebrates a birthday on this date?</p>
-      </div>
+    <!-- Message 1 -->
+    <div class="message" id="msg1">
+      <p>Today is <strong>January 3rd</strong>...</p>
+      <p>Do you know who celebrates a birthday on this date?</p>
+    </div>
 
-      <!-- Message 2 -->
-      <div class="message" id="msg2">
-        <p>
-          It’s the day of the legendary <strong>Michael Schumacher</strong>!
-        </p>
-        <p>A seven-time F1 World Champion, a true motorsport icon!</p>
-      </div>
+    <!-- Message 2 -->
+    <div class="message" id="msg2">
+      <p>It’s the day of the legendary <strong>Michael Schumacher</strong>!</p>
+      <p>A seven-time F1 World Champion, a true motorsport icon!</p>
+    </div>
 
-      <!-- Message 3 -->
-      <div class="message" id="msg3">
-        <p>But wait... he’s not the only lucky one celebrating today...</p>
-        <p>There’s someone REALLY special also blowing out candles!</p>
-      </div>
+    <!-- Message 3 -->
+    <div class="message" id="msg3">
+      <p>But wait... he’s not the only lucky one celebrating today...</p>
+      <p>There’s someone REALLY special also blowing out candles!</p>
+    </div>
 
-      <!-- Message 4 -->
-      <div class="message" id="msg4">
-        <p>This person headed to <strong>Houston, Texas</strong>!</p>
-        <p>A nuclear physicist with a post-doctorate in epidemiology... Wow!</p>
-      </div>
+    <!-- Message 4 -->
+    <div class="message" id="msg4">
+      <p>This person headed to <strong>Houston, Texas</strong>!</p>
+      <p>A nuclear physicist with a post-doctorate in epidemiology... Wow!</p>
+    </div>
 
-      <!-- Message 5 -->
-      <div class="message" id="msg5">
-        <p><strong>Happy Birthday, Márcia!</strong></p>
-        <p>I might be late, but I wanted to make this extra special!</p>
-        <div class="photo-section">
-          <!-- Change to the real URL of the photo you want -->
-          <img src="/marcia.jpg" alt="Photo with Marcia" />
-          <p>A throwback to our early days in Houston.</p>
-        </div>
-      </div>
-
-      <!-- Message 6 -->
-      <div class="message" id="msg6">
-        <p>May God keep blessing you richly</p>
-        <p>and shower you with countless blessings wherever you are!</p>
-        <p>Big hug, Julius</p>
+    <!-- Message 5 -->
+    <div class="message" id="msg5">
+      <p><strong>Happy Birthday, Márcia!</strong></p>
+      <p>I might be late, but I wanted to make this extra special!</p>
+      <div class="photo-section">
+        <!-- Troque pelo URL/arquivo real da sua foto -->
+        <img 
+          src="/marcia.jpg" 
+          alt="Photo with Marcia" 
+        />
+        <p>A throwback to our early days in Houston.</p>
       </div>
     </div>
 
-    <!-- Confetti layer -->
-    <div class="confetti" id="confetti"></div>
+    <!-- Message 6 -->
+    <div class="message" id="msg6">
+      <p>May God keep blessing you richly</p>
+      <p>and shower you with countless blessings wherever you are!</p>
+    </div>
+  </div>
 
-    <script>
-      // --- CREATE STARS (TWINKLING) ---
-      // We'll place a bunch of .star elements randomly on the screen.
-      const starField = document.getElementById("star-field");
-      function createStars(count = 60) {
-        for (let i = 0; i < count; i++) {
-          const star = document.createElement("div");
-          star.classList.add("star");
+  <!-- Confetti layer -->
+  <div class="confetti" id="confetti"></div>
 
-          // Random position
-          const x = Math.random() * 100; // 0% to 100%
-          const y = Math.random() * 100; // 0% to 100%
-          star.style.left = x + "%";
-          star.style.top = y + "%";
+  <script>
+    // --- CREATE STARS (TWINKLING) ---
+    // We'll place a bunch of .star elements randomly on the screen.
+    const starField = document.getElementById('star-field');
+    function createStars(count = 60) {
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
 
-          // Sometimes make a bigger star
-          const size = Math.random() < 0.1 ? 3 : 2;
-          star.style.width = size + "px";
-          star.style.height = size + "px";
+        // Random position
+        const x = Math.random() * 100; // 0% to 100%
+        const y = Math.random() * 100; // 0% to 100%
+        star.style.left = x + '%';
+        star.style.top = y + '%';
 
-          starField.appendChild(star);
-        }
+        // Occasionally make a bigger star
+        const size = Math.random() < 0.1 ? 3 : 2;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+
+        starField.appendChild(star);
       }
-      createStars(60);
+    }
+    createStars(60);
 
-      // --- REFERENCES ---
-      const car = document.querySelector(".f1-car");
-      const msg1 = document.getElementById("msg1");
-      const msg2 = document.getElementById("msg2");
-      const msg3 = document.getElementById("msg3");
-      const msg4 = document.getElementById("msg4");
-      const msg5 = document.getElementById("msg5");
-      const msg6 = document.getElementById("msg6");
-      const confettiContainer = document.getElementById("confetti");
+    // --- REFERENCES ---
+    const car = document.querySelector('.f1-car');
+    const msg1 = document.getElementById('msg1');
+    const msg2 = document.getElementById('msg2');
+    const msg3 = document.getElementById('msg3');
+    const msg4 = document.getElementById('msg4');
+    const msg5 = document.getElementById('msg5');
+    const msg6 = document.getElementById('msg6');
+    const confettiContainer = document.getElementById('confetti');
 
-      /*
-      Timeline (~21s until final):
+    /*
+      TIMELINE (~31s total):
       ---------------------------------
       0.5s  -> Car enters (3s)
-      1s    -> show msg1 (4s)
-      5s    -> hide msg1, show msg2 (4s)
-      9s    -> hide msg2, show msg3 (4s)
-      13s   -> hide msg3, show msg4 (4s)
-      17s   -> hide msg4, show msg5 (4s)
-      21s   -> hide msg5, show msg6 + confetti
+      1s    -> show msg1 (until 7s)
+      7s    -> hide msg1, show msg2 (until 13s)
+      13s   -> hide msg2, show msg3 (until 19s)
+      19s   -> hide msg3, show msg4 (until 25s)
+      25s   -> hide msg4, show msg5 (until 31s)
+      31s   -> hide msg5, show msg6 + confetti
     */
 
-      // 1) Car animation starts at 0.5s
-      setTimeout(() => {
-        car.classList.add("slide-in");
-      }, 500);
+    // 1) Car animation starts at 0.5s
+    setTimeout(() => {
+      car.classList.add('slide-in');
+    }, 500);
 
-      // 2) Show msg1 at 1s
-      setTimeout(() => {
-        msg1.classList.add("active");
-      }, 1000);
+    // 2) Show msg1 at 1s
+    setTimeout(() => {
+      msg1.classList.add('active');
+    }, 1000);
 
-      // 3) Hide msg1, show msg2 at 5s
-      setTimeout(() => {
-        msg1.classList.remove("active");
-        msg2.classList.add("active");
-      }, 5000);
+    // 3) Hide msg1, show msg2 at 7s
+    setTimeout(() => {
+      msg1.classList.remove('active');
+      msg2.classList.add('active');
+    }, 7000);
 
-      // 4) Hide msg2, show msg3 at 9s
-      setTimeout(() => {
-        msg2.classList.remove("active");
-        msg3.classList.add("active");
-      }, 9000);
+    // 4) Hide msg2, show msg3 at 13s
+    setTimeout(() => {
+      msg2.classList.remove('active');
+      msg3.classList.add('active');
+    }, 13000);
 
-      // 5) Hide msg3, show msg4 at 13s
-      setTimeout(() => {
-        msg3.classList.remove("active");
-        msg4.classList.add("active");
-      }, 13000);
+    // 5) Hide msg3, show msg4 at 19s
+    setTimeout(() => {
+      msg3.classList.remove('active');
+      msg4.classList.add('active');
+    }, 19000);
 
-      // 6) Hide msg4, show msg5 at 17s
-      setTimeout(() => {
-        msg4.classList.remove("active");
-        msg5.classList.add("active");
-      }, 17000);
+    // 6) Hide msg4, show msg5 at 25s
+    setTimeout(() => {
+      msg4.classList.remove('active');
+      msg5.classList.add('active');
+    }, 25000);
 
-      // 7) Hide msg5, show msg6 + confetti at 21s
-      setTimeout(() => {
-        msg5.classList.remove("active");
-        msg6.classList.add("active");
-        startConfetti();
-      }, 21000);
+    // 7) Hide msg5, show msg6 + confetti at 31s
+    setTimeout(() => {
+      msg5.classList.remove('active');
+      msg6.classList.add('active');
+      startConfetti();
+    }, 31000);
 
-      // ------- CONFETTI -------
-      function randomBetween(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
+    // ------- CONFETTI -------
+    function randomBetween(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function createConfettiPiece() {
+      const confettiPiece = document.createElement('div');
+      confettiPiece.classList.add('confetti-piece');
+
+      // Random color
+      const colors = ['#FDEE00', '#FF5B5B', '#57E2E5', '#8F00FF', '#FFBC42', '#FF85AD', '#00FA9A'];
+      const randomColor = colors[randomBetween(0, colors.length - 1)];
+      confettiPiece.style.backgroundColor = randomColor;
+      
+      // Random left position
+      confettiPiece.style.left = randomBetween(0, 100) + '%';
+      // Start slightly above the top
+      confettiPiece.style.top = '-10px';
+      
+      // Random size
+      const size = randomBetween(8, 12) + 'px';
+      confettiPiece.style.width = size;
+      confettiPiece.style.height = size;
+
+      // Random fall duration (3 to 6s)
+      const fallDuration = randomBetween(3, 6) + 's';
+      confettiPiece.style.animationDuration = fallDuration;
+
+      confettiContainer.appendChild(confettiPiece);
+
+      // Remove from DOM after animation ends
+      confettiPiece.addEventListener('animationend', () => {
+        confettiPiece.remove();
+      });
+    }
+
+    function startConfetti() {
+      for (let i = 0; i < 200; i++) {
+        setTimeout(() => {
+          createConfettiPiece();
+        }, i * 30);
       }
-
-      function createConfettiPiece() {
-        const confettiPiece = document.createElement("div");
-        confettiPiece.classList.add("confetti-piece");
-
-        // Random color
-        const colors = [
-          "#FDEE00",
-          "#FF5B5B",
-          "#57E2E5",
-          "#8F00FF",
-          "#FFBC42",
-          "#FF85AD",
-          "#00FA9A",
-        ];
-        const randomColor = colors[randomBetween(0, colors.length - 1)];
-        confettiPiece.style.backgroundColor = randomColor;
-
-        // Random left position
-        confettiPiece.style.left = randomBetween(0, 100) + "%";
-        // Start slightly above the top
-        confettiPiece.style.top = "-10px";
-
-        // Random size
-        const size = randomBetween(8, 12) + "px";
-        confettiPiece.style.width = size;
-        confettiPiece.style.height = size;
-
-        // Random fall duration (3 to 6s)
-        const fallDuration = randomBetween(3, 6) + "s";
-        confettiPiece.style.animationDuration = fallDuration;
-
-        confettiContainer.appendChild(confettiPiece);
-
-        // Remove from DOM after animation ends
-        confettiPiece.addEventListener("animationend", () => {
-          confettiPiece.remove();
-        });
-      }
-
-      function startConfetti() {
-        for (let i = 0; i < 200; i++) {
-          setTimeout(() => {
-            createConfettiPiece();
-          }, i * 30);
-        }
-      }
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>
