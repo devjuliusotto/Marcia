@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Special Birthday Edition</title>
+    <title>Marcia's Birthday</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       /* ----------------------------------------------
        BASIC RESET
-    ---------------------------------------------- */
+      ---------------------------------------------- */
       * {
         margin: 0;
         padding: 0;
@@ -16,7 +16,7 @@
 
       /* ----------------------------------------------
        BODY WITH ANIMATED GRADIENT BACKGROUND
-    ---------------------------------------------- */
+      ---------------------------------------------- */
       body {
         width: 100%;
         height: 100vh;
@@ -42,7 +42,7 @@
 
       /* ----------------------------------------------
        STAR FIELD (TWINKLING STARS IN THE BACKGROUND)
-    ---------------------------------------------- */
+      ---------------------------------------------- */
       .star {
         position: absolute;
         width: 2px;
@@ -71,8 +71,8 @@
 
       /* ----------------------------------------------
        MESSAGES
-       Aparecem com leve "scale" e fade (opacity)
-    ---------------------------------------------- */
+       Appear with a slight "scale" and fade (opacity)
+      ---------------------------------------------- */
       .message {
         position: absolute;
         top: 50%;
@@ -93,9 +93,9 @@
       }
 
       /* 
-      Ajuste opcional se achar que o texto fica muito grande
-      em telas menores (i.e. iPhone 13 mini).
-    */
+      Optional adjustment if text is too large
+      on smaller screens (e.g., iPhone 13 mini).
+      */
       @media (max-width: 400px) {
         .message {
           font-size: 1.3rem;
@@ -104,11 +104,11 @@
 
       /* ----------------------------------------------
        F1 CAR
-       Faz animação da esquerda para a direita
-    ---------------------------------------------- */
+       Animates from left to right
+      ---------------------------------------------- */
       .f1-car {
         position: absolute;
-        top: 60%; /* Ajuste conforme quiser */
+        top: 60%; /* Adjust as needed */
         left: -220px;
         width: 200px;
         z-index: 5;
@@ -122,13 +122,13 @@
           transform: translateX(0px);
         }
         100% {
-          transform: translateX(120vw); /* cruza a tela */
+          transform: translateX(120vw); /* crosses the screen */
         }
       }
 
       /* ----------------------------------------------
        PHOTO SECTION
-    ---------------------------------------------- */
+      ---------------------------------------------- */
       .photo-section {
         display: flex;
         flex-direction: column;
@@ -144,7 +144,7 @@
 
       /* ----------------------------------------------
        CONFETTI
-    ---------------------------------------------- */
+      ---------------------------------------------- */
       .confetti {
         position: absolute;
         top: 0;
@@ -157,20 +157,42 @@
       }
       .confetti-piece {
         position: absolute;
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         background: #fdee00;
         will-change: transform, opacity;
-        animation: fall linear forwards;
+        animation: fly 4s linear forwards;
+        opacity: 0;
       }
-      @keyframes fall {
+      @keyframes fly {
         0% {
-          transform: translateY(-10%) rotate(0deg);
           opacity: 1;
+          transform: translate(0, 0) rotate(0deg);
         }
         100% {
-          transform: translateY(110%) rotate(720deg);
           opacity: 0;
+          transform: translate(var(--tx), var(--ty)) rotate(720deg);
+        }
+      }
+
+      /* ----------------------------------------------
+       BLINKING STARS AT THE END
+      ---------------------------------------------- */
+      .blinking-star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #fff;
+        opacity: 0;
+        animation: blink 1.5s infinite;
+      }
+      @keyframes blink {
+        0%, 100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
         }
       }
     </style>
@@ -178,42 +200,42 @@
   <body>
     <!-- Container for stars, content, confetti -->
     <div class="container" id="star-field">
-      <!-- F1 Car (link público para garantir exibição no GitHub Pages) -->
+      <!-- F1 Car (ensure the image path is correct) -->
       <img class="f1-car" src="./img/f1.png" alt="F1 Car" />
 
       <!-- Message 1 -->
       <div class="message" id="msg1">
-        <p>Good evening, ladies and gentlemen</p>
+        <p>Good evening, ladies and gentlemen!</p>
         <p>Today is <strong>January 3rd</strong>...</p>
-        <p>Do you know who celebrates a birthday on this date?</p>
+        <p>Do you know who is celebrating a birthday on this date?</p>
       </div>
 
       <!-- Message 2 -->
       <div class="message" id="msg2">
         <p>
-          It’s the day of the legendary <strong>Michael Schumacher</strong>!
+          It's the day of the legendary <strong>Michael Schumacher</strong>!
         </p>
-        <p>A seven-time F1 World Champion, a true motorsport icon!</p>
+        <p>Seven-time F1 World Champion, a true motorsport icon!</p>
       </div>
 
       <!-- Message 3 -->
       <div class="message" id="msg3">
-        <p>But wait... he’s not the only lucky one celebrating today...</p>
-        <p>There’s someone REALLY special also blowing out candles!</p>
+        <p>But wait... he's not the only lucky one celebrating today...</p>
+        <p>There's someone VERY special also blowing out candles!</p>
       </div>
 
       <!-- Message 4 -->
       <div class="message" id="msg4">
-        <p>This person headed to <strong>Houston, Texas</strong>!</p>
-        <p>A nuclear physicist with a post-doctorate in epidemiology... Wow!</p>
+        <p>This person is in <strong>Houston, Texas</strong>!</p>
+        <p>A nuclear physicist with a post-doctorate in epidemiology... Amazing!</p>
       </div>
 
       <!-- Message 5 -->
       <div class="message" id="msg5">
         <p><strong>Happy Birthday, Márcia!</strong></p>
-        <p>I might be late, but I wanted to make this extra special!</p>
+        <p>I took a bit longer to close with a golden key, but I wanted to make this moment even more special!</p>
         <div class="photo-section">
-          <!-- Troque pelo URL/arquivo real da sua foto -->
+          <!-- Replace with your actual image URL/file -->
           <img src="./img/marcia.jpg" alt="Photo with Marcia" />
           <p>A throwback to our early days in Houston.</p>
         </div>
@@ -221,13 +243,23 @@
 
       <!-- Message 6 -->
       <div class="message" id="msg6">
-        <p>May God keep blessing you richly</p>
+        <p>May God continue to bless you richly</p>
         <p>and shower you with countless blessings wherever you are!</p>
+      </div>
+
+      <!-- Message 7 - Final Happy Birthday Message -->
+      <div class="message" id="msg7">
+        <p><strong>Happy Birthday, Márcia!</strong></p>
+        <p>Wishing you had a day filled with love, joy, and all your heart's desires!</p>
+        <p>:)</p>
       </div>
     </div>
 
     <!-- Confetti layer -->
     <div class="confetti" id="confetti"></div>
+
+    <!-- Blinking Stars layer -->
+    <div class="confetti" id="blinking-stars"></div>
 
     <script>
       // --- CREATE STARS (TWINKLING) ---
@@ -262,19 +294,22 @@
       const msg4 = document.getElementById("msg4");
       const msg5 = document.getElementById("msg5");
       const msg6 = document.getElementById("msg6");
+      const msg7 = document.getElementById("msg7");
       const confettiContainer = document.getElementById("confetti");
+      const blinkingStarsContainer = document.getElementById("blinking-stars");
 
       /*
-      TIMELINE (~31s total):
+      TIMELINE (~40s total):
       ---------------------------------
       0.5s  -> Car enters (3s)
       1s    -> show msg1 (until 7s)
       7s    -> hide msg1, show msg2 (until 13s)
       13s   -> hide msg2, show msg3 (until 19s)
       19s   -> hide msg3, show msg4 (until 25s)
-      25s   -> hide msg4, show msg5 (until 31s)
-      31s   -> hide msg5, show msg6 + confetti
-    */
+      25s   -> hide msg4, show msg5 (until 35s)
+      35s   -> hide msg5, show msg6 (until 40s)
+      40s   -> hide msg6, show msg7 + confetti + blinking stars
+      */
 
       // 1) Car animation starts at 0.5s
       setTimeout(() => {
@@ -308,14 +343,21 @@
       setTimeout(() => {
         msg4.classList.remove("active");
         msg5.classList.add("active");
+        startConfetti(); // Start confetti when msg5 appears
       }, 25000);
 
-      // 7) Hide msg5, show msg6 + confetti at 31s
+      // 7) Hide msg5, show msg6 at 35s
       setTimeout(() => {
         msg5.classList.remove("active");
         msg6.classList.add("active");
-        startConfetti();
-      }, 31000);
+      }, 35000); // 35 seconds
+
+      // 8) Hide msg6, show msg7 + confetti + blinking stars at 40s
+      setTimeout(() => {
+        msg6.classList.remove("active");
+        msg7.classList.add("active");
+        startFinalEffects();
+      }, 40000); // 40 seconds
 
       // ------- CONFETTI -------
       function randomBetween(min, max) {
@@ -335,23 +377,40 @@
           "#FFBC42",
           "#FF85AD",
           "#00FA9A",
+          "#FF5733",
+          "#33FF57",
+          "#3357FF",
+          "#FFC300",
+          "#DAF7A6",
         ];
         const randomColor = colors[randomBetween(0, colors.length - 1)];
         confettiPiece.style.backgroundColor = randomColor;
 
-        // Random left position
-        confettiPiece.style.left = randomBetween(0, 100) + "%";
-        // Start slightly above the top
-        confettiPiece.style.top = "-10px";
+        // Determine side: left or right
+        const side = Math.random() < 0.5 ? "left" : "right";
+        if (side === "left") {
+          confettiPiece.style.left = "0%";
+          confettiPiece.style.setProperty("--tx", `${randomBetween(50, 100)}vw`);
+        } else {
+          confettiPiece.style.left = "100%";
+          confettiPiece.style.setProperty("--tx", `${randomBetween(-100, -50)}vw`);
+        }
+
+        // Random vertical start position
+        const yPos = randomBetween(10, 90);
+        confettiPiece.style.top = `${yPos}%`;
+
+        // Random translation on Y-axis
+        confettiPiece.style.setProperty("--ty", `${randomBetween(20, 100)}vh`);
 
         // Random size
-        const size = randomBetween(8, 12) + "px";
+        const size = randomBetween(6, 12) + "px";
         confettiPiece.style.width = size;
         confettiPiece.style.height = size;
 
-        // Random fall duration (3 to 6s)
-        const fallDuration = randomBetween(3, 6) + "s";
-        confettiPiece.style.animationDuration = fallDuration;
+        // Random animation duration
+        const duration = randomBetween(3, 5) + "s";
+        confettiPiece.style.animationDuration = duration;
 
         confettiContainer.appendChild(confettiPiece);
 
@@ -362,10 +421,42 @@
       }
 
       function startConfetti() {
-        for (let i = 0; i < 200; i++) {
+        // Explode confetti in a short period to simulate an explosion
+        for (let i = 0; i < 100; i++) {
           setTimeout(() => {
             createConfettiPiece();
-          }, i * 30);
+          }, i * 20); // Confetti every 20ms
+        }
+      }
+
+      // ------- FINAL EFFECTS (Confetti and Blinking Stars) -------
+      function createBlinkingStar() {
+        const blinkingStar = document.createElement("div");
+        blinkingStar.classList.add("blinking-star");
+
+        // Random position
+        const x = Math.random() * 100; // 0% to 100%
+        const y = Math.random() * 100; // 0% to 100%
+        blinkingStar.style.left = x + "%";
+        blinkingStar.style.top = y + "%";
+
+        blinkingStarsContainer.appendChild(blinkingStar);
+
+        // Remove after some time to prevent too many elements
+        setTimeout(() => {
+          blinkingStar.remove();
+        }, 3000); // 3 seconds
+      }
+
+      function startFinalEffects() {
+        // Start confetti explosion
+        startConfetti();
+
+        // Start blinking stars
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            createBlinkingStar();
+          }, i * 100); // Create a blinking star every 100ms
         }
       }
     </script>
