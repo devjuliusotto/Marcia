@@ -108,23 +108,26 @@
       ---------------------------------------------- */
       .f1-car {
         position: absolute;
-        top: 60%; /* Adjust as needed */
-        left: -220px;
-        width: 200px;
-        z-index: 5;
-      }
+        top: 70%; /* Adjust as needed */
+        left: -130px; /* Start off-screen left */
+        width: 150px;
+        z-index: 1;
+        }
       /* “Running” animation from left to right */
-      .slide-in {
-        animation: moveCar 3s linear forwards;
-      }
-      @keyframes moveCar {
-        0% {
-          transform: translateX(0px);
+/* “Running” animation from left to right */
+        .slide-in {
+        animation: moveCar 4s linear forwards; /* 9 seconds duration */
         }
-        100% {
-          transform: translateX(120vw); /* crosses the screen */
+
+        @keyframes moveCar {
+        from {
+            transform: translateX(0);
         }
-      }
+        to {
+            transform: translateX(120vw); /* Move off-screen right */
+        }
+        }
+
 
       /* ----------------------------------------------
        PHOTO SECTION
@@ -312,9 +315,11 @@
       */
 
       // 1) Car animation starts at 0.5s
-      setTimeout(() => {
+// 1) Car animation starts at 9s
+    setTimeout(() => {
         car.classList.add("slide-in");
-      }, 500);
+    }, 9000); // 9000 milliseconds = 9 seconds
+
 
       // 2) Show msg1 at 1s
       setTimeout(() => {
